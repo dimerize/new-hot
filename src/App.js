@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { HotTable } from '@handsontable/react';
-import Handsontable from 'handsontable';
+// import Handsontable from 'handsontable';
 
 class App extends React.Component {
   constructor(props) {
