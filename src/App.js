@@ -72,8 +72,8 @@ class App extends React.Component {
     };
 
     return (
-      <div>
-        <div>
+      <div id="app-wrapper">
+        <div id="hot-table-component">
         <HotTable 
           licenseKey="non-commercial-and-evaluation"
           id={this.id}
