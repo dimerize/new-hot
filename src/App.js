@@ -11,7 +11,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 
-// this.data[time - 7][section]
+// this.data[time - 7][section];
 
 class App extends React.Component {
   constructor(props) {
@@ -32,11 +32,12 @@ class App extends React.Component {
       ["7 PM", "free", "free"],
       ["8 PM", "free", "free"]
     ];
+
     this.state = {
       time: 8,
       section: 1,
       name: ""
-    }
+    };
   }
 
   render() {
@@ -50,6 +51,12 @@ class App extends React.Component {
 
     const handleName = (event) => {
       this.setState({ name: event.target.value });
+    }
+
+    const handleSubmit = (event) => {
+      alert("The default time is " + this.data[1][0]);
+
+
     }
 
     return (
@@ -100,7 +107,7 @@ class App extends React.Component {
         </Select>
         </FormControl>
         <FormControl>
-          <Button variant="contained" onClick={() => { alert('Add Functionality Here!') }}>Submit Experiment</Button>
+          <Button variant="contained" onClick={handleSubmit}>Submit Experiment</Button>
         </FormControl>
         </div>
       </div>  
