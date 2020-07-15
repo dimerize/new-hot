@@ -8,6 +8,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+
+// this.data[time - 7][section]
 
 class App extends React.Component {
   constructor(props) {
@@ -29,7 +33,9 @@ class App extends React.Component {
       ["8 PM", "free", "free"]
     ];
     this.state = {
-      time: 8
+      time: 8,
+      section: 1,
+      name: ""
     }
   }
 
@@ -37,6 +43,14 @@ class App extends React.Component {
     const handleChange = (event) => {
       this.setState({ time: event.target.value });
     };
+
+    const handleSection = (event) => {
+      this.setState({ section: event.target.value });
+    }
+
+    const handleName = (event) => {
+      this.setState({ name: event.target.value });
+    }
 
     return (
       <div>
@@ -50,7 +64,22 @@ class App extends React.Component {
           width="600"
         />
         </div>
-        <div>
+        <div class="input-form">
+        <FormControl>
+        <InputLabel>Section</InputLabel>
+        <Select
+          value={this.state.section}
+          onChange={handleSection}
+        >
+          <MenuItem value={1}>Section One</MenuItem>
+          <MenuItem value={2}>Section Two</MenuItem>
+        </Select>
+        </FormControl>
+        <FormControl>
+        <form autoComplete="off">
+          <TextField label="Name" value={this.state.name} onChange={handleName} />
+        </form>
+        </FormControl>
         <FormControl>
         <InputLabel>Time</InputLabel>
         <Select
@@ -69,6 +98,9 @@ class App extends React.Component {
           <MenuItem value={17}>5 PM to 8 PM</MenuItem>
           <MenuItem value={18}>6 PM to 9 PM</MenuItem>
         </Select>
+        </FormControl>
+        <FormControl>
+          <Button variant="contained" onClick={() => { alert('Add Functionality Here!') }}>Submit Experiment</Button>
         </FormControl>
         </div>
       </div>  
