@@ -9,9 +9,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
-// import { ListItemText } from '@material-ui/core';
-
-// this.data[time - 7][section];
 
 class App extends React.Component {
   constructor(props) {
@@ -46,9 +43,9 @@ class App extends React.Component {
     const handleSubmit = (event) => {
       let tableData = getTableData();
 
-      tableData[this.state.time - 7][this.state.section] = this.state.name;
-      tableData[this.state.time - 6][this.state.section] = this.state.name;
-      tableData[this.state.time - 5][this.state.section] = this.state.name;
+      for (let i = 7; i >= 5; i--) {
+        tableData[this.state.time - i][this.state.section] = this.state.name;
+      }
 
       this.hotTableComponent.current.hotInstance.loadData(tableData);
     }
