@@ -54,7 +54,7 @@ class App extends React.Component {
 
     let getTableData = function() {
       return ([
-        ["", "Scheduling One", "Scheduling Two"],
+        ["", "Schedule One", "Schedule Two"],
         ["8 AM", "free", "free"],
         ["9 AM", "free", "free"],
         ["10 AM", "free", "free"],
