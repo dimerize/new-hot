@@ -56,7 +56,7 @@ class App extends React.Component {
     const handleSubmit = (event) => {
       alert("The default time is " + this.data[1][0]);
 
-
+      this.data[1][1] = "TEST_RUN";
     }
 
     return (
