@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import { HotTable } from '@handsontable/react';
-
-// import Handsontable from 'handsontable';
+import Handsontable from 'handsontable';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,28 +9,19 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
+// import { ListItemText } from '@material-ui/core';
 
 // this.data[time - 7][section];
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.data = [
-      ["", "Scheduling One", "Scheduling Two"],
-      ["8 AM", "free", "free"],
-      ["9 AM", "free", "free"],
-      ["10 AM", "free", "free"],
-      ["11 AM", "free", "free"],
-      ["12 PM", "free", "free"],
-      ["1 PM", "free", "free"],
-      ["2 PM", "free", "free"],
-      ["3 PM", "free", "free"],
-      ["4 PM", "free", "free"],
-      ["5 PM", "free", "free"],
-      ["6 PM", "free", "free"],
-      ["7 PM", "free", "free"],
-      ["8 PM", "free", "free"]
-    ];
+
+    this.id = 'hot';
+    this.hotSettings = {
+      data: Handsontable.helper.createSpreadsheetData(14, 3),
+    };
+    this.hotTableComponent = React.createRef();
 
     this.state = {
       time: 8,
@@ -54,18 +44,43 @@ class App extends React.Component {
     }
 
     const handleSubmit = (event) => {
-      alert("The default time is " + this.data[1][0]);
+      let tableData = getTableData();
 
-      this.data[1][1] = "TEST_RUN";
+      tableData[this.state.time - 7][this.state.section] = this.state.name;
+      tableData[this.state.time - 6][this.state.section] = this.state.name;
+      tableData[this.state.time - 5][this.state.section] = this.state.name;
+
+      this.hotTableComponent.current.hotInstance.loadData(tableData);
     }
+
+    let getTableData = function() {
+      return ([
+        ["", "Scheduling One", "Scheduling Two"],
+        ["8 AM", "free", "free"],
+        ["9 AM", "free", "free"],
+        ["10 AM", "free", "free"],
+        ["11 AM", "free", "free"],
+        ["12 PM", "free", "free"],
+        ["1 PM", "free", "free"],
+        ["2 PM", "free", "free"],
+        ["3 PM", "free", "free"],
+        ["4 PM", "free", "free"],
+        ["5 PM", "free", "free"],
+        ["6 PM", "free", "free"],
+        ["7 PM", "free", "free"],
+        ["8 PM", "free", "free"]
+      ]);
+    };
 
     return (
       <div>
         <div>
         <HotTable 
           licenseKey="non-commercial-and-evaluation"
-          id="hot"
-          data={this.data} 
+          id={this.id}
+          settings={this.hotSettings}
+          data={getTableData()} 
+          ref={this.hotTableComponent}
           colHeaders={false} 
           rowHeaders={false}
           width="600"
