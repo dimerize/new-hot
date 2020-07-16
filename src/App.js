@@ -45,11 +45,17 @@ class App extends React.Component {
     const handleSubmit = (event) => {
       let tableData = getTableData();
 
-      for (let i = 7; i >= 5; i--) {
-        tableData[this.state.time - i][this.state.section] = this.state.name;
-      }
+      if (tableData[this.state.time - 7][this.state.section] !== "free" || tableData[this.state.time - 5][this.state.section] !== "free") {
+        alert("This time slot is not available for scheduling.");
+      } else {
+        for (let i = 7; i >= 5; i--) {
+          tableData[this.state.time - i][this.state.section] = this.state.name;
+        }
 
-      this.hotTableComponent.current.hotInstance.loadData(tableData);
+        this.hotTableComponent.current.hotInstance.loadData(tableData);
+
+        // export tableData to backend here
+      }
     }
 
     let getTableData = function() {
@@ -60,9 +66,9 @@ class App extends React.Component {
         ["10 AM", "free", "free"],
         ["11 AM", "free", "free"],
         ["12 PM", "free", "free"],
-        ["1 PM", "free", "free"],
-        ["2 PM", "free", "free"],
-        ["3 PM", "free", "free"],
+        ["1 PM", "Scheduled", "free"],
+        ["2 PM", "Scheduled", "free"],
+        ["3 PM", "Scheduled", "free"],
         ["4 PM", "free", "free"],
         ["5 PM", "free", "free"],
         ["6 PM", "free", "free"],
