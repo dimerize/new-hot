@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.handsontable {
+  background-color: aqua;
+}
+
 .input-form {
   margin: 19px 9px;
   padding: 19px 9px;
