@@ -43,12 +43,15 @@ class App extends React.Component {
       if (tableData[this.state.time - 7][1] !== "free" || tableData[this.state.time - 5][1] !== "free") {
         if (tableData[this.state.time - 7][2] !== "free" || tableData[this.state.time - 5][2] !== "free") {
           alert("This time slot is not available for scheduling.");
+
         } else {
           for (let i = 7; i >= 5; i--) {
             tableData[this.state.time - i][2] = this.state.name;
           }
   
           this.hotTableComponent.current.hotInstance.loadData(tableData);
+
+          // export tableData to backend here
         }
       } else {
         for (let i = 7; i >= 5; i--) {
@@ -71,9 +74,9 @@ class App extends React.Component {
         ["12 PM", "free", "free"],
         ["1 PM", "Scheduled", "free"],
         ["2 PM", "Scheduled", "free"],
-        ["3 PM", "Scheduled", "free"],
-        ["4 PM", "free", "free"],
-        ["5 PM", "free", "free"],
+        ["3 PM", "Scheduled", "Scheduled"],
+        ["4 PM", "free", "Scheduled"],
+        ["5 PM", "free", "Scheduled"],
         ["6 PM", "free", "free"],
         ["7 PM", "free", "free"],
         ["8 PM", "free", "free"]
