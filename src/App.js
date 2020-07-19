@@ -24,7 +24,6 @@ class App extends React.Component {
 
     this.state = {
       time: 8,
-      section: 1,
       name: ""
     };
   }
@@ -34,10 +33,6 @@ class App extends React.Component {
       this.setState({ time: event.target.value });
     };
 
-    const handleSection = (event) => {
-      this.setState({ section: event.target.value });
-    }
-
     const handleName = (event) => {
       this.setState({ name: event.target.value });
     }
@@ -45,11 +40,19 @@ class App extends React.Component {
     const handleSubmit = (event) => {
       let tableData = getTableData();
 
-      if (tableData[this.state.time - 7][this.state.section] !== "free" || tableData[this.state.time - 5][this.state.section] !== "free") {
-        alert("This time slot is not available for scheduling.");
+      if (tableData[this.state.time - 7][1] !== "free" || tableData[this.state.time - 5][1] !== "free") {
+        if (tableData[this.state.time - 7][2] !== "free" || tableData[this.state.time - 5][2] !== "free") {
+          alert("This time slot is not available for scheduling.");
+        } else {
+          for (let i = 7; i >= 5; i--) {
+            tableData[this.state.time - i][2] = this.state.name;
+          }
+  
+          this.hotTableComponent.current.hotInstance.loadData(tableData);
+        }
       } else {
         for (let i = 7; i >= 5; i--) {
-          tableData[this.state.time - i][this.state.section] = this.state.name;
+          tableData[this.state.time - i][1] = this.state.name;
         }
 
         this.hotTableComponent.current.hotInstance.loadData(tableData);
@@ -92,16 +95,6 @@ class App extends React.Component {
         />
         </div>
         <div class="input-form">
-        <FormControl>
-        <InputLabel>Section</InputLabel>
-        <Select
-          value={this.state.section}
-          onChange={handleSection}
-        >
-          <MenuItem value={1}>Section One</MenuItem>
-          <MenuItem value={2}>Section Two</MenuItem>
-        </Select>
-        </FormControl>
         <FormControl>
         <form autoComplete="off">
           <TextField label="Name" value={this.state.name} onChange={handleName} />
