@@ -2,9 +2,9 @@
   text-align: center;
 }
 
-.handsontable {
+/* .handsontable {
   background-color: aqua;
-} 
+} */
 
 .input-form {
   margin: 19px 9px;
@@ -17,8 +17,8 @@
 }
 
 #hot-table-component {
-  margin: 9px 38px;
-  padding: 9px 38px;
+  margin: 9px 39px;
+  padding: 9px 39px;
 }
 
 .App-logo {
