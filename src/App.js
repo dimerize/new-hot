@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 import { HotTable } from '@handsontable/react';
 import Handsontable from 'handsontable';
@@ -26,6 +27,16 @@ class App extends React.Component {
       time: 8,
       name: ""
     };
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:4000/api/books')
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   render() {
