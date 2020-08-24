@@ -19,6 +19,9 @@
 #hot-table-component {
   margin: 9px 39px;
   padding: 9px 39px;
+  align-content: center;
+  justify-items: center;
+  opacity: 0.85;
 }
 
 .App-logo {

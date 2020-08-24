@@ -5,9 +5,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(rgb(255, 255, 255, 0.25), rgb(0, 0, 0, 0.25)),
+    url('./assets/tile-bg-rs.jpg') 0% 0%/cover no-repeat;
+  opacity: 0.9;
+  height: 100vw;
+  overflow: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*linear-gradient(rgb(255, 255, 255, 0.25), rgb(0, 0, 0, 0.25))
+url('./assets/tile-bg-rs.jpg') 0% 0%/cover no-repeat */

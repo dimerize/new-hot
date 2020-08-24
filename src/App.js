@@ -25,18 +25,38 @@ class App extends React.Component {
 
     this.state = {
       time: 8,
-      name: ""
+      name: "",
+      chemistry: 3,
+      schedule: [[]]
     };
   }
 
   componentDidMount() {
-    axios.get('http://localhost:4000/api/books')
+    axios.get('http://localhost:4000/api/books/5f2af5a83f9391fbfaf79e89')
     .then(response => {
-      console.log(response.data);
+      console.log(response.data.schedule);
+      this.setState({ schedule: response.data.schedule });
     })
     .catch(error => {
-      console.log(error);
+      console.log(error); 
     });
+  }
+
+  componentDidUpdate() {
+    const res = axios.put('http://localhost:4000/api/books/5f2af5a83f9391fbfaf79e89', {
+        schedule: this.state.schedule,
+        title: 'prop title',
+        author: 'prop author',
+        genre: 'prop genre',
+        read: false
+      })
+      .then(response => {
+        console.log(response.data.schedule);
+        this.setState({ schedule: response.data.schedule });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -48,8 +68,12 @@ class App extends React.Component {
       this.setState({ name: event.target.value });
     }
 
+    const handleChemistry = (event) => {
+      this.setState({ chemistry: event.target.value });
+    }
+
     const handleSubmit = (event) => {
-      let tableData = getTableData();
+      let tableData = this.state.schedule;
 
       if (tableData[this.state.time - 7][1] !== "free" || tableData[this.state.time - 5][1] !== "free") {
         if (tableData[this.state.time - 7][2] !== "free" || tableData[this.state.time - 5][2] !== "free") {
@@ -62,7 +86,7 @@ class App extends React.Component {
   
           this.hotTableComponent.current.hotInstance.loadData(tableData);
 
-          // export tableData to backend here
+          this.setState({ schedule: tableData });
         }
       } else {
         for (let i = 7; i >= 5; i--) {
@@ -71,28 +95,11 @@ class App extends React.Component {
 
         this.hotTableComponent.current.hotInstance.loadData(tableData);
 
-        // export tableData to backend here
+        this.setState({ schedule: tableData });
       }
     }
 
-    let getTableData = function() {
-      return ([
-        ["", "Schedule One", "Schedule Two"],
-        ["8 AM", "free", "Scheduled"],
-        ["9 AM", "free", "Scheduled"],
-        ["10 AM", "free", "Scheduled"],
-        ["11 AM", "free", "free"],
-        ["12 PM", "free", "free"],
-        ["1 PM", "Scheduled", "free"],
-        ["2 PM", "Scheduled", "free"],
-        ["3 PM", "Scheduled", "Scheduled"],
-        ["4 PM", "free", "Scheduled"],
-        ["5 PM", "free", "Scheduled"],
-        ["6 PM", "free", "free"],
-        ["7 PM", "free", "free"],
-        ["8 PM", "free", "free"]
-      ]);
-    };
+    
 
     return (
       <div id="app-wrapper">
@@ -101,7 +108,7 @@ class App extends React.Component {
           licenseKey="non-commercial-and-evaluation"
           id={this.id}
           settings={this.hotSettings}
-          data={getTableData()} 
+          data={this.state.schedule} 
           ref={this.hotTableComponent}
           colHeaders={false} 
           rowHeaders={false}
@@ -131,6 +138,17 @@ class App extends React.Component {
           <MenuItem value={16}>4 PM to 7 PM</MenuItem>
           <MenuItem value={17}>5 PM to 8 PM</MenuItem>
           <MenuItem value={18}>6 PM to 9 PM</MenuItem>
+        </Select>
+        </FormControl>  
+        <FormControl>
+        <InputLabel>Chemistry</InputLabel>
+        <Select
+          label="3 Prime"
+          value={this.state.chemistry}
+          onChange={handleChemistry}
+        >
+          <MenuItem value={3}>3 Prime</MenuItem>
+          <MenuItem value={5}>5 Prime</MenuItem>
         </Select>
         </FormControl>
         <FormControl>
